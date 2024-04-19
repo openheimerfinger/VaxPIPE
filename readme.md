@@ -32,7 +32,8 @@ After that, just go to the following link in your browser:
 •	***Docker ps***
 
 •	 Then check the name of your created container, look in the NAMES header:
- IMAGE 1
+
+![Texto Alternativo](https://github.com/openheimerfinger/VaxPIPE/blob/main/images/docker.png?raw=true)
  
 • In this case, the name of the container has been declared as blissful_leavitt, so to manually retrieve its results, you can run it in the terminal/prompt:
 
@@ -141,9 +142,15 @@ Allertop will generate a file with the information (allergenic or non-allergenic
 ## 4. Outputs examples
 ### 4.1 CSV file with the epitopes per steps
 
+![Texto Alternativo](https://github.com/openheimerfinger/VaxPIPE/blob/main/images/csv.png?raw=true)
+
 ### 4.2 sequence.png
 
+![Texto Alternativo](https://github.com/openheimerfinger/VaxPIPE/blob/main/images/sequence.png?raw=true)
+
 ### 4.3 MHCI and MHCII flowchart.png
+
+![Texto Alternativo](https://github.com/openheimerfinger/VaxPIPE/blob/main/images/flowchart.png?raw=true)
 
 
 
