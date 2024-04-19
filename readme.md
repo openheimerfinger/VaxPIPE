@@ -1,6 +1,6 @@
 # VaxPIPE
 ### An Automated Pipeline for Multi-Epitope Vaccine Development
-> *The development of multi-epitope vaccines in silico has revolutionized how we generate new immunogen possibilities. Here we introduce VaxG, a software that follows a pipeline based on leading works published in the literature.*
+> *The development of multi-epitope vaccines in silico has revolutionized how we generate new immunogen possibilities. Here we introduce VaxPIPE, a software that follows a pipeline based on leading works published in the literature.*
 
 ## 1.	INSTALATION
 ### • Tutorial
