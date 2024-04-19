@@ -1,0 +1,7 @@
+Epitopos filtrados pelos metodos especificos e valores de Percentil rank e Ic50 estabelecidos
+Overlapping entre métodos e depois entre junção dos métodos e abcpred
+epitopos finais = (MHCI metodo 1 + MHCI metodo 2 + ABCpred) + (MHCII metodo 1 + MHCII metodo 2 + ABCpred)
+epitopos finais = todos filtrados pelo immunogenicity > 1 e repetições (clusters) são tirados, mantendo apenas um representante
+epitopos finais = adição dos linkers e do adjuvante
+epitopos finais = construção randomizada (1000, 2000 ou 3000 modelos) e escolha do melhor pelo vaxijen
+epitopos finais = verificação do 2D (psipred), alergenicidade (allertop) e parametros fisico-quimicos (protparam)

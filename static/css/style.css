@@ -1,0 +1,228 @@
+#form
+
+.cabecalho__form {
+    display: flex;
+    background-color: #ffffff;
+    color: #ffffff;
+}
+
+.container__form {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #ffffff;
+    border-radius: 20px;
+    width:1200px;
+    margin-bottom: 15px;
+    margin-top: 40px;
+    height: 800px;
+}
+
+.methods__form {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #ffffff;
+}
+
+
+.methods__form__box {
+    display: flex;
+    height: 200px;
+    width:100%;
+}
+
+.mhcI__sequence {
+    height: 300px;
+    width: 100%;
+    color:red;
+    margin-right: 10px;
+}
+
+.titulo__form {
+    display: flex;
+    justify-content: space-around;
+}
+
+.param__methods {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+}
+
+.adjuvant__box {
+    display:flex;
+    flex-direction: column;
+    height: auto;
+}
+
+.parameters__form {
+    display: flex;
+}
+
+.params__box {
+    display: flex;
+    width: 100%;
+}
+
+.form_box {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid #ffffff;
+    width: 100%;
+}
+
+.sequences__proteins__form {
+    border: 5px solid;
+    border-radius: 10px;
+}
+
+.action__form {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    background-color: #ffffff;
+
+}
+
+#report
+
+.report__data {
+    display: flex;
+    flex-direction: column;
+}
+
+.info__analysis {
+    display: flex;
+    flex-direction: column;
+}
+
+.cabecalho__report {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 5px;
+}
+
+.cabecalho__report span{
+    display: flex;
+}
+
+.sequence__report {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.sequence__report .card {
+    width:300px;
+}
+
+
+.mhc__sequence__report {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+.mhc__alleles_report {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.mhc__alleles_report {
+    display: flex;
+    flex-direction: column;
+}
+
+.alleles__box{
+    display: flex;
+}
+
+.alleles__box .card {
+    margin-right: 20px;
+}
+
+
+.mch__linker__report {
+    display: flex;
+    flex-direction: column;
+}
+
+.linkers__box{
+    display: flex;
+}
+
+.linkers__box .card {
+    margin-right: 20px;
+}
+
+.adjuvant__report {
+    display: flex;
+    flex-direction: column;
+}
+
+.subtitle__report {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+.methods__params__report {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.methods__params__mhc__report{
+    display: flex;
+    flex-direction: column;
+}
+
+.mhc__methods__choices {
+    display: flex;
+}
+
+.methods__paramns__general__reports {
+    display: flex;
+    flex-direction: column;
+    width: 520px;
+}
+
+.mhc__methods__choices .card {
+    margin-right: 20px;
+}
+
+.params__cards {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.params__cards .card {
+    width: 130px;
+}
+
+.pdf__export {
+    display: flex;
+    justify-content: center;
+}
+
+.return__form {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+
+.response__report{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+
+.Summary {
+    display: flex;
+    justify-content: center;
+}

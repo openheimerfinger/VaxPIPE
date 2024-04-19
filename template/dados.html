@@ -1,0 +1,88 @@
+{% load static %}
+{% load bootstrap5 %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <title>Data to Analysis</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="cabecalho__form">
+                <div>
+                  <h2>VaxG - Multi-Epitope Vaccine Prediction</h2>
+                </div>
+                <div>
+                  <p>Imagem</p>
+                </div>
+            </div>
+            <div class="container__form">
+                <form class="form-control form-control-sm" method="post", enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form_box">
+                        <div class="form__left">
+                            <div class="titulo__form">
+                                <div>{% bootstrap_field form.analysisname%}</div>
+                                <div>{% bootstrap_field form.email%}</div>
+                            </div>
+                            <div class="methods__form">
+                                <div class="methods__form__box">
+                                    <div class="mhcI__sequence">
+                                        {% bootstrap_field form.mhcI %}
+                                    </div>
+                                    <div class="mhcI__sequence">
+                                        {% bootstrap_field form.mhcII %}
+                                    </div>
+                                    <div class="param__methods">
+                                        <div>{% bootstrap_field form.mhcILinker %}</div>
+                                        <div>{% bootstrap_field form.mhcIILinker %}</div>
+                                    </div>
+                                </div>
+                                <div class="adjuvant__box">{% bootstrap_field form.adjuvant size='small' %}</div>
+                            </div>
+                            <div class="parameters__form">
+                                <div class="row">
+                                </div>
+                                <div class="params__methods__gerais">
+                                    <div>{% bootstrap_field form.methodsMHCI%}</div>
+                                    <div>{% bootstrap_field form.methodsMHCII%}</div>
+                                </div>
+                                <div class="params__box">
+                                    <div class="paramns__box__left">
+                                        <div>{% bootstrap_field form.chimericmodelsnumber%}</div>
+                                        <div>{% bootstrap_field form.sizeMHCIepitopes%}</div>
+                                        <div>{% bootstrap_field form.sizeMHCIIepitopes%}</div>
+                                        <div>{% bootstrap_field form.randommodels%}</div>
+                                    </div>
+                                    <div>
+                                        <div>{% bootstrap_field form.IC50MHCI%}</div>
+                                        <div>{% bootstrap_field form.IC50MHCII%}</div>
+                                        <div>{% bootstrap_field form.p1%}</div>
+                                        <div>{% bootstrap_field form.p2%}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sequences__proteins__form">
+                            <div>{% bootstrap_field form.proteinfile%}</div>
+                            <p>OR</p>
+                            <div>{% bootstrap_field form.proteinsequence%}</div>
+                        </div>
+                    </div>
+                    <div class="action__form">
+                       {% buttons %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        {% endbuttons %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>
