@@ -820,14 +820,14 @@ def predicao(data):
     def dividir_sequencia(sequencia):
         partes = []
         while sequencia:
-            indice_gpgpg = sequencia.find("GPGPG")
-            indice_aay = sequencia.find("AAY")
+            indice_gpgpg = sequencia.find(Linker2)
+            indice_aay = sequencia.find(Linker1)
             if indice_gpgpg != -1 and (indice_gpgpg < indice_aay or indice_aay == -1):
                 partes.append(sequencia[:indice_gpgpg])
-                sequencia = sequencia[indice_gpgpg + len("GPGPG") :]
+                sequencia = sequencia[indice_gpgpg + len(Linker2) :]
             elif indice_aay != -1 and (indice_aay < indice_gpgpg or indice_gpgpg == -1):
                 partes.append(sequencia[:indice_aay])
-                sequencia = sequencia[indice_aay + len("AAY") :]
+                sequencia = sequencia[indice_aay + len(Linker1) :]
             else:
                 partes.append(sequencia)
                 sequencia = ""
