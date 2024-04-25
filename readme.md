@@ -1,6 +1,6 @@
 ![Texto Alternativo](https://github.com/openheimerfinger/VaxPIPE/blob/main/images/vax.png?raw=true)
 # VaxPIPE
-### An Automated Pipeline for Multi-Epitope Vaccine Development ![Texto Alternativo](https://github.com/openheimerfinger/VaxPIPE/blob/main/images/2.png?raw=true)
+### ![Texto Alternativo](https://github.com/openheimerfinger/VaxPIPE/blob/main/images/2.png?raw=true) An automatic development pipeline for multi-epitope vaccines
 > *The development of multi-epitope vaccines in silico has revolutionized how we generate new immunogen possibilities. Here we introduce VaxPIPE, a software that follows a pipeline based on leading works published in the literature.*
 
 
