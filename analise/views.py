@@ -38,7 +38,7 @@ class Dados(FormView):
                     proteinsseqfile = self.lerarquivo(f"epitopos/uploads/{request.FILES['proteinfile']}")
                     self.request.session['proteinsseqfile'] = proteinsseqfile
                 analysisname = form.cleaned_data['analysisname']
-                adjuvant = form.cleaned_data['adjuvant']
+                adjuvant = form.cleaned_data['adjuvant'] + 'EAAAK'
                 mhcI = form.cleaned_data['mhcI']
                 mhcII = form.cleaned_data['mhcII']
                 mhcILinker = form.cleaned_data['mhcILinker']
