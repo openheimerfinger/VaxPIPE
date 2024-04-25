@@ -21,10 +21,10 @@ def enviar_email():
             print(email_content)
 
         # Definir informações do e-mail
-        de = "d201910872@uftm.edu.br"
+        de = "vaxpipeline@outlook.com"
         para = email_content
-        assunto = "VaxG Results"
-        mensagem = "VaxG Results\nThanks for using"
+        assunto = "VaxPIPE Results"
+        mensagem = "VaxPIPE Results\nThanks for using"
 
         # Criar mensagem multipart (para enviar anexo)
         msg = MIMEMultipart()
@@ -37,7 +37,7 @@ def enviar_email():
 
         # Adicionar anexo
         caminho_anexo = novo_nome
-        nome_anexo = os.path.basename(caminho_anexo+novo_nome)
+        nome_anexo = os.path.basename(caminho_anexo)
         arquivo_anexo = open(caminho_anexo, 'rb')
         parte_anexo = MIMEBase('application', 'octet-stream')
         parte_anexo.set_payload(arquivo_anexo.read())
@@ -46,8 +46,8 @@ def enviar_email():
         msg.attach(parte_anexo)
 
         # Enviar e-mail
-        senha = "bolinho22"
-        smtp = smtplib.SMTP('smtp.gmail.com', 587)
+        senha = "!Gipsysiomar"
+        smtp = smtplib.SMTP('smtp-mail.outlook.com', 587)
         smtp.starttls()
         smtp.login(de, senha)
         texto = msg.as_string()
@@ -59,7 +59,7 @@ def enviar_email():
 
 def apagar_arquivos():
     diretorio_atual = os.getcwd()
-    extensoes = ['.txt', '.csv', '.faa', '.png', 'zip']
+    extensoes = ['.txt', '.csv', '.faa', '.png', 'zip', 'str']
     for arquivo in os.listdir(diretorio_atual):
         # Verificar se o arquivo tem uma das extensões a serem excluídas
         if any(arquivo.endswith(extensao) for extensao in extensoes):

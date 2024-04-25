@@ -1,19 +1,36 @@
 /*Dados*/
 
+.custom-label {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.btn-help{
+    position: fixed;
+}
+
 .header-content {
     position: relative;
     display: flex; /* Para alinhar os elementos lado a lado */
     align-items: center; /* Para centralizar verticalmente */
     justify-content: center;
-    padding: 15px; /* Espaçamento interno */
+    padding: 16px; /* Espaçamento interno */
     background-color: #120645;
 }
 
 /* Estilo para a imagem */
 .header-image {
-    width: 100px; /* Largura da imagem */
-    height: 100px; /* Altura da imagem */
+    width: 110px; /* Largura da imagem */
+    height: 110px; /* Altura da imagem */
     margin-right: 20px; /* Espaçamento à direita para separar do texto */
+    margin-left: 5px;
+}
+
+/* Estilo para a imagem */
+.logo-image {
+    width: auto; /* Largura da imagem */
+    height: 80px; /* Altura da imagem */
+    margin-right: 0px; /* Espaçamento à direita para separar do texto */
     margin-left: 100;
 }
 
