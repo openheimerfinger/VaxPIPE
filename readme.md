@@ -13,11 +13,11 @@
 
 • At the command prompt, use the following command:
 
-• ***docker pull openheimerfinger/vaxg:v16***
+• ***docker pull openheimerfinger/vaxg:v18***
 
 And then:
 
-•	***docker run -d -p 8000:8000 openheimerfinger/vaxg:v16***
+•	***docker run -d -p 8000:8000 openheimerfinger/vaxg:v18***
 
 After that, just go to the following link in your browser:
 
