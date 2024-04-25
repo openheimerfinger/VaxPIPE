@@ -2,7 +2,7 @@
 ### An Automated Pipeline for Multi-Epitope Vaccine Development
 > *The development of multi-epitope vaccines in silico has revolutionized how we generate new immunogen possibilities. Here we introduce VaxPIPE, a software that follows a pipeline based on leading works published in the literature.*
 
-## 1.	INSTALATION
+## 1.	Instalation
 ### • Tutorial
 
 • First you need to install the docker engine on your computer, whether it's Linux, Windows or Mac. Here's the installation link: https://docs.docker.com/engine/install/
