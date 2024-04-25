@@ -6,31 +6,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        function baixarPDF() {var link = document.createElement('a'); link.href = '/static/help.pdf'; link.download = 'help.pdf'; document.body.appendChild(link); link.click(); document.body.removeChild(link);
+        }
+    </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <title>Data to Analysis</title>
+    <title>VaxPipe - Data to Analysis</title>
+    <link rel="icon" type="image/png" href="static/logo.png">
 </head>
 <body>
+    <div class="header-content">
+        <img src="static/vax.png" alt="Logo VaxG" class="logo-image">
+        <img src="static/logo.png" alt="Logo Texto VaxG" class="header-image">
+        <div class="header-text">
+            <h1>VaxPIPE</h1>
+            <h2>An automatic development pipeline for multi-epitope vaccines</h2>
+        </div>
+    </div>
     <div class="container">
-        <div class="row">
-            <div class="cabecalho__form">
-                <div>
-                  <h2>VaxG - Multi-Epitope Vaccine Prediction</h2>
-                </div>
-                <div>
-                  <p>Imagem</p>
-                </div>
-            </div>
-            <div class="container__form">
-                <form class="form-control form-control-sm" method="post", enctype="multipart/form-data">
+        <div class="container__form">
+            <form class="form-control form-control-sm" method="post", enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form_box">
                         <div class="form__left">
-                            <div class="titulo__form">
+                            <div class="titulo__form custom-label">
                                 <div>{% bootstrap_field form.analysisname%}</div>
                                 <div>{% bootstrap_field form.email%}</div>
                             </div>
-                            <div class="methods__form">
+                            <div class="methods__form custom-label">
                                 <div class="methods__form__box">
                                     <div class="mhcI__sequence">
                                         {% bootstrap_field form.mhcI %}
@@ -39,48 +43,49 @@
                                         {% bootstrap_field form.mhcII %}
                                     </div>
                                     <div class="param__methods">
-                                        <div>{% bootstrap_field form.mhcILinker %}</div>
-                                        <div>{% bootstrap_field form.mhcIILinker %}</div>
+                                        {% bootstrap_field form.mhcILinker %}
+                                        {% bootstrap_field form.mhcIILinker %}
                                     </div>
                                 </div>
                                 <div class="adjuvant__box">{% bootstrap_field form.adjuvant size='small' %}</div>
                             </div>
-                            <div class="parameters__form">
-                                <div class="row">
-                                </div>
+                            <div class="parameters__form custom-label">
                                 <div class="params__methods__gerais">
                                     <div>{% bootstrap_field form.methodsMHCI%}</div>
                                     <div>{% bootstrap_field form.methodsMHCII%}</div>
                                 </div>
-                                <div class="params__box">
+                                <div class="params__box custom-label">
                                     <div class="paramns__box__left">
                                         <div>{% bootstrap_field form.chimericmodelsnumber%}</div>
                                         <div>{% bootstrap_field form.sizeMHCIepitopes%}</div>
                                         <div>{% bootstrap_field form.sizeMHCIIepitopes%}</div>
-                                        <div>{% bootstrap_field form.randommodels%}</div>
                                     </div>
-                                    <div>
+                                    <div class="params__box__right">
                                         <div>{% bootstrap_field form.IC50MHCI%}</div>
                                         <div>{% bootstrap_field form.IC50MHCII%}</div>
-                                        <div>{% bootstrap_field form.p1%}</div>
-                                        <div>{% bootstrap_field form.p2%}</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="sequences__proteins__form">
+                        <div class="sequences__proteins__form custom-label">
                             <div>{% bootstrap_field form.proteinfile%}</div>
                             <p>OR</p>
                             <div>{% bootstrap_field form.proteinsequence%}</div>
+                            <br>
+                            <br>
+                            <br>
+                            <div>{% bootstrap_field form.p1%}</div>
+                            <div>{% bootstrap_field form.p2%}</div>
                         </div>
                     </div>
+                    
                     <div class="action__form">
-                       {% buttons %}
+                        {% buttons %}
+                        <button style="margin-right: 10px;" onclick="baixarPDF()" class="btn btn-danger">Help</button>
                         <button type="submit" class="btn btn-primary">Submit</button>
                         {% endbuttons %}
                     </div>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

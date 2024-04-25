@@ -11,8 +11,12 @@ import os, pandas as pd, selenium, shutil, random, zipfile, time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
+
 proteinas_lista = []
-os.remove("requirements.txt")
+
+if os.path.exists("requirements.txt"):
+    os.remove("requirements.txt")
+
 #1.0 - First module - comunication with the HTML
 def dataform(data_dict):
     projeto = data_dict['analysisnameform']
@@ -29,7 +33,6 @@ def dataform(data_dict):
     ic50mhc1 = data_dict['IC50MHCIform']
     ic50mhc2 = data_dict['IC50MHCIIform']
     number_chimerics = data_dict['chimericmodelsnumberform']
-    random_models = data_dict['randommodelsform']
     linkermhc1 = data_dict['mhcILinkerform']
     linkermhc2 = data_dict['mhcIILinkerform']
     adjuvante = data_dict['adjuvantform']
@@ -80,7 +83,7 @@ def dataform(data_dict):
     tmhciiadjust.append(tmhciilast)
     tmhciifinal = ''.join(tmhciiadjust)
 
-    return (projeto, useremail, proteinsequencelist, allelesmhcifinal, allelesmhciifinal, metodoMHCI, metodoMHCII, tmhcifinal, tmhciifinal, p1, p2, ic50mhc1, ic50mhc2, number_chimerics, random_models,linkermhc1,linkermhc2,adjuvante)
+    return (projeto, useremail, proteinsequencelist, allelesmhcifinal, allelesmhciifinal, metodoMHCI, metodoMHCII, tmhcifinal, tmhciifinal, p1, p2, ic50mhc1, ic50mhc2, number_chimerics,linkermhc1,linkermhc2,adjuvante)
 
 #2.0 - Second module - Epitope Prediction from IEDB and ABCpred
 #2.1 Django data extraction for the back-end script
@@ -99,9 +102,9 @@ def predicao(data):
     ic50mhc1 = data[11]
     ic50mhc2 = data[12]
     number_chimerics = data[13]
-    linkermhci = data[15]
-    linkermhcii = data[16]
-    adjuvantevacina = data[17]
+    linkermhci = data[14]
+    linkermhcii = data[15]
+    adjuvantevacina = data[16]
     
 
     headers = [
@@ -1049,7 +1052,4 @@ def predicao(data):
     z.write('sequence.png')
     z.write('flowchart.png')
     z.write('output.csv')
-    z.close()    
-
-
-                
+    z.close()

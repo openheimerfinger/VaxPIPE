@@ -75,12 +75,6 @@ MHC2EPITOPESSIZE = [
     ('15', '15')
 ]
 
-RANDOMMODELS = [
-    ('1', '1'),
-    ('500', '500'),
-    ('1000', '1000'),
-    ('1500', '1500'),
-]
 
 MHC1METHODS = [
     ('netmhccons', 'netmhccons'),
@@ -111,19 +105,18 @@ class Parametros(forms.Form):
     proteinsequence = forms.CharField(widget=forms.Textarea(
         attrs={'placeholder': 'Enter PROTEIN SEQUENCES in FASTA format'}), label='PROTEINS', required=False)
     adjuvant = forms.CharField(widget=forms.Textarea(
-        attrs={'placeholder': 'Enter ADJUVANT SEQUENCES in PLAIN format'}), label='ADJUVANT', required=False)
-    mhcI = forms.MultipleChoiceField(choices=MHC1, label='Alleles MHCI', initial=MHC1[0])
-    mhcII = forms.MultipleChoiceField(choices=MHC2, label='Alleles MHCII', initial=MHC2[0])
+        attrs={'placeholder': 'Enter ADJUVANT SEQUENCES in PLAIN format', 'style': 'max-height: 100px;'}), label='ADJUVANT', required=False)
+    mhcI = forms.MultipleChoiceField(choices=MHC1, label='Alleles MHCI', initial=MHC1[0], widget=forms.SelectMultiple(attrs={'size': 6}))
+    mhcII = forms.MultipleChoiceField(choices=MHC2, label='Alleles MHCII', initial=MHC2[0], widget=forms.SelectMultiple(attrs={'size': 6}))
     mhcILinker = forms.CharField(max_length=500, initial='AAY', label='MHCI Linker')
     mhcIILinker = forms.CharField(max_length=500, initial='GPGPG', label='MHCII Linker')
     chimericmodelsnumber = forms.IntegerField(label='Number of Chimeric Models', min_value=1, initial=1)
     sizeMHCIepitopes = forms.ChoiceField(choices=MHC1EPITOPESSIZE, label='Size of MHCI Epitopes')
     sizeMHCIIepitopes = forms.ChoiceField(choices=MHC2EPITOPESSIZE, label='Size of MHCII Epitopes')
-    randommodels = forms.ChoiceField(choices=RANDOMMODELS)
-    methodsMHCI = forms.ChoiceField(choices=MHC1METHODS)
-    methodsMHCII = forms.ChoiceField(choices=MHC2METHODS)
-    IC50MHCI = forms.IntegerField(initial='50', min_value=1)
-    IC50MHCII = forms.IntegerField(initial='50', min_value=1)
+    methodsMHCI = forms.ChoiceField(choices=MHC1METHODS, label='Secondary Method for MHCI')
+    methodsMHCII = forms.ChoiceField(choices=MHC2METHODS, label='Secondary Method for MHCII')
+    IC50MHCI = forms.IntegerField(initial='50', min_value=1, label='IC50 MHCI')
+    IC50MHCII = forms.IntegerField(initial='50', min_value=1, label='IC50 MHCII')
     p1 = forms.IntegerField(initial='1', min_value=1)
     p2 = forms.IntegerField(initial='1', min_value=1)
     email = forms.EmailField()
