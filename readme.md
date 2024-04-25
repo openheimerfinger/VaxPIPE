@@ -23,7 +23,7 @@ After that, just go to the following link in your browser:
 
 •	***http://localhost:8000/***
 
-## 2. Resume for users
+## 2. Abstract for users
 ### • Prediction 
 • First, the program predicts epitopes (the smallest immunogenic part of a protein) that have affinity with human MHC I and MHC II receptors. This prediction is carried out using two different methods for increased result reliability.
 
