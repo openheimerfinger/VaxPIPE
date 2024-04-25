@@ -13,7 +13,7 @@
 
 • At the command prompt, use the following command:
 
-• ***docker pull openheimerfinger/vaxg:v13***
+• ***docker pull openheimerfinger/vaxg:v16***
 
 And then:
 
