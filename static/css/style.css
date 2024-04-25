@@ -1,20 +1,41 @@
-#form
+/*Dados*/
 
-.cabecalho__form {
-    display: flex;
-    background-color: #ffffff;
+.header-content {
+    position: relative;
+    display: flex; /* Para alinhar os elementos lado a lado */
+    align-items: center; /* Para centralizar verticalmente */
+    justify-content: center;
+    padding: 15px; /* Espaçamento interno */
+    background-color: #120645;
+}
+
+/* Estilo para a imagem */
+.header-image {
+    width: 100px; /* Largura da imagem */
+    height: 100px; /* Altura da imagem */
+    margin-right: 20px; /* Espaçamento à direita para separar do texto */
+    margin-left: 100;
+}
+
+/* Estilo para o texto */
+.header-text h1 {
+    margin: 0; /* Remover margens padrão */
     color: #ffffff;
 }
 
+.header-text h2{
+    color: aliceblue;
+}
+
 .container__form {
-    display: flex;
+    display: flexbox;
     flex-direction: column;
     border: 2px solid #ffffff;
     border-radius: 20px;
-    width:1200px;
-    margin-bottom: 15px;
-    margin-top: 40px;
-    height: 800px;
+    width:100%;
+    margin-bottom:50px;
+    margin-top: 5px;
+    height: auto;
 }
 
 .methods__form {
@@ -26,41 +47,68 @@
 
 .methods__form__box {
     display: flex;
-    height: 200px;
-    width:100%;
-}
-
-.mhcI__sequence {
-    height: 300px;
+    height: fit-content;
     width: 100%;
-    color:red;
-    margin-right: 10px;
-}
-
-.titulo__form {
-    display: flex;
-    justify-content: space-around;
+    margin: 5px;
 }
 
 .param__methods {
     display: flex;
     flex-direction: column;
-    width: 250px;
+    width: fit-content;
+    justify-content: space-evenly;
+    margin: 15px
+}
+
+.mhcI__sequence {
+    height: 100%;
+    width: 100%;
+    color:red;
+    margin: 15px;
+}
+
+.form__left{
+    display: block;
+
+}
+
+.titulo__form {
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .adjuvant__box {
     display:flex;
     flex-direction: column;
-    height: auto;
+    height: min-content;
+    margin: 10px;
 }
 
 .parameters__form {
     display: flex;
+    height: auto;
+    width: auto;
+
 }
 
 .params__box {
-    display: flex;
-    width: 100%;
+    display: contents;
+    width: auto;
+}
+
+.paramns__box__left {
+    width: auto;
+    margin: 15px;
+}
+
+.params__box__right {
+    width: auto;
+    margin: 15px;
+}
+
+.params__methods__gerais{
+    width: 40%;
+    margin: 15px;
 }
 
 .form_box {
@@ -71,8 +119,8 @@
 }
 
 .sequences__proteins__form {
-    border: 5px solid;
-    border-radius: 10px;
+    width: auto;
+    height: fit-content;
 }
 
 .action__form {
@@ -83,7 +131,8 @@
 
 }
 
-#report
+
+/*#report*/
 
 .report__data {
     display: flex;

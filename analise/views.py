@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
+from analise import limpar
 from analise.forms import Parametros
 from Bio import SeqIO
 import analise.scriptPedro as sp
@@ -45,7 +46,6 @@ class Dados(FormView):
                 chimericmodelsnumber = form.cleaned_data['chimericmodelsnumber']
                 sizeMHCIepitopes = form.cleaned_data['sizeMHCIepitopes']
                 sizeMHCIIepitopes = form.cleaned_data['sizeMHCIIepitopes']
-                randommodels = form.cleaned_data['randommodels']
                 methodsMHCI = form.cleaned_data['methodsMHCI']
                 methodsMHCII = form.cleaned_data['methodsMHCII']
                 IC50MHCI = form.cleaned_data['IC50MHCI']
@@ -53,6 +53,8 @@ class Dados(FormView):
                 p1 = form.cleaned_data['p1']
                 p2 = form.cleaned_data['p2']
                 email = form.cleaned_data['email']
+                with open('email.str', 'w') as file:
+                    file.write(email)
 
                 # sessions
                 self.request.session['analysisname'] = analysisname
@@ -64,7 +66,6 @@ class Dados(FormView):
                 self.request.session['chimericmodelsnumber'] = chimericmodelsnumber
                 self.request.session['sizeMHCIepitopes'] = sizeMHCIepitopes
                 self.request.session['sizeMHCIIepitopes'] = sizeMHCIIepitopes
-                self.request.session['randommodels'] = randommodels
                 self.request.session['methodsMHCI'] = methodsMHCI
                 self.request.session['methodsMHCII'] = methodsMHCII
                 self.request.session['IC50MHCI'] = IC50MHCI
@@ -74,16 +75,17 @@ class Dados(FormView):
                 self.request.session['email'] = email
 
                 return super().form_valid(form)
+            else:
+                # Se o formulário não for válido, renderiza o formulário com os erros
+                return render(request, 'dados.html', {'form': form})
         else:
             form = Parametros()
-            self.form_invalid(form)
-
-        return render(request, 'dados.html', {'form': form})
+            # Se a solicitação não for POST, renderiza o formulário vazio
+            return render(request, 'dados.html', {'form': form})
 
 
 class Analisar(TemplateView):
     template_name = 'recebidos.html'
-
 
     def get_context_data(self, **kwargs):
         context = super(Analisar, self).get_context_data(**kwargs)
@@ -97,7 +99,6 @@ class Analisar(TemplateView):
         chimericmodelsnumberform = self.request.session['chimericmodelsnumber']
         sizeMHCIepitopesform = self.request.session['sizeMHCIepitopes']
         sizeMHCIIepitopesform = self.request.session['sizeMHCIIepitopes']
-        randommodelsform = self.request.session['randommodels']
         methodsMHCIform = self.request.session['methodsMHCI']
         methodsMHCIIform = self.request.session['methodsMHCII']
         IC50MHCIform = self.request.session['IC50MHCI']
@@ -116,7 +117,6 @@ class Analisar(TemplateView):
         context['chimericmodelsnumberform'] = chimericmodelsnumberform
         context['sizeMHCIepitopesform'] = sizeMHCIepitopesform
         context['sizeMHCIIepitopesform'] = sizeMHCIIepitopesform
-        context['randommodelsform'] = randommodelsform
         context['methodsMHCIform'] = methodsMHCIform
         context['methodsMHCIIform'] = methodsMHCIIform
         context['IC50MHCIform'] = IC50MHCIform
@@ -139,7 +139,6 @@ class Analisar(TemplateView):
                     'IC50MHCIform': IC50MHCIform,
                     'IC50MHCIIform': IC50MHCIIform,
                     'chimericmodelsnumberform': chimericmodelsnumberform,
-                    'randommodelsform': randommodelsform,
                     'mhcILinkerform': mhcILinkerform,
                     'mhcIILinkerform': mhcIILinkerform,
                     'adjuvantform': adjuvantform}
@@ -147,5 +146,8 @@ class Analisar(TemplateView):
         a = sp.dataform(data_dict)
         
         sp.predicao(a)
+
+        limpar.enviar_email()
+        limpar.apagar_arquivos()
 
         return context
