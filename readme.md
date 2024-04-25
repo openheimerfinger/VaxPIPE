@@ -3,8 +3,6 @@
 ### An automatic development pipeline for multi-epitope vaccines
 > *The development of multi-epitope vaccines in silico has revolutionized how we generate new immunogen possibilities. Here we introduce VaxPIPE, a software that follows a pipeline based on leading works published in the literature.*
 
-
-
 ## 1.	Instalation
 ### • Tutorial
 
@@ -16,11 +14,11 @@
 
 • At the command prompt, use the following command:
 
-• ***docker pull openheimerfinger/vaxg:v18***
+• ***docker pull openheimerfinger/vaxg:beta***
 
 And then:
 
-•	***docker run -d -p 8000:8000 openheimerfinger/vaxg:v18***
+•	***docker run -d -p 8000:8000 openheimerfinger/vaxg:beta***
 
 After that, just go to the following link in your browser:
 
