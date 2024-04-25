@@ -17,52 +17,11 @@
 
 And then:
 
-•	***docker run -d -p 8000:8000 openheimerfinger/vaxg:v13***
+•	***docker run -d -p 8000:8000 openheimerfinger/vaxg:v16***
 
 After that, just go to the following link in your browser:
 
 •	***http://localhost:8000/***
-
-### Getting outputs
-
-• In addition to the results automatically going to the email entered in the input process, you can manually remove the results from the container using the following commands in the termial/prompt:
-
-(First check the name of your created container, look in the NAMES header)
-
-•	***Docker ps***
-
-•	 Then check the name of your created container, look in the NAMES header:
-
-![Texto Alternativo](https://github.com/openheimerfinger/VaxPIPE/blob/main/images/docker.png?raw=true)
- 
-• In this case, the name of the container has been declared as blissful_leavitt, so to manually retrieve its results, you can run it in the terminal/prompt:
-
-•	***Docker cp blissful_leavitt:/app/Final.zip Final.zip***
-
-The file will be copied to the root folder where your terminal/prompt was run.
-
-•	**OBS:** In the final.zip file there are no other intermediate results that have been generated, such as the epitope files for proteins before the MHCi immunogenicity and clustering analysis. Therefore, if your proteins have few epitopes and you want to relax the filtering process without performing clustering or MHCI immunogenicity, you can retrieve the predicted/filtered/overlapped epitopes for MHCI and MHCII per protein and use them to build your vaccine manually.
-
-•	To do this, check the name of the files generated in the folder by running:
-
-•	***Docker exec –it blissful_leavitt ls***
-
-•	 replace blissful_leavitt with the name of your container
-
-•	Then use the docker cp command again to retrieve the files you want.
-
-•	The intermediate files have the following name pattern:
-
-MHCI_Epitopes_1.txt and
-
-MHCII_Epitopes_1.txt
-
-
-•	**OBS:** The number at the end of the name represents the order of the protein according to the fasta file. Therefore, the file ending in 1 is associated with the first protein in the input fasta file.
-
-•	If you want to see the contents inside the files before extract them, run:
-
-•	***Docker exec –it blissful_leavitt cat name_of_the_file.txt***
 
 ## 2. Resume for users
 ### • Prediction 
