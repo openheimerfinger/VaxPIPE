@@ -199,7 +199,7 @@ def predicao(data):
             duplicateMHCI.to_csv('NETmhc1FIL.csv',  
                             index = None)
 
-        if "netmhcpan_ba" or "ann" or "smmpmbec" or "smm" or "netmhccons" or "pickpocket" in metodoMHCI:
+        elif "netmhcpan_ba" in metodoMHCI or "ann" in metodoMHCI or "smmpmbec" in metodoMHCI or "smm" in metodoMHCI or "netmhccons" in metodoMHCI or "pickpocket" in metodoMHCI:
             Metodo2MHCI = pd.read_table("NETmhci.csv", sep = ',')
             Metodo2MHCIcolunas = Metodo2MHCI.filter(["allele","peptide","ic50","percentile_rank"])
             Metodo2MHCIfiltro = Metodo2MHCIcolunas[(Metodo2MHCIcolunas["ic50"] <ic50mhc1) & (Metodo2MHCIcolunas["percentile_rank"] < p1)]
@@ -207,7 +207,7 @@ def predicao(data):
             duplicateMHCI.to_csv('NETmhc1FIL.csv',  
                             index = None)
 
-        if "netmhcpan_el" in metodoMHCI:
+        elif "netmhcpan_el" in metodoMHCI:
             Metodo2MHCI = pd.read_table("NETmhci.csv", sep = ',')
             Metodo2MHCIcolunas = Metodo2MHCI.filter(["allele","peptide","percentile_rank"])
             Metodo2MHCIfiltro = Metodo2MHCIcolunas[(Metodo2MHCIcolunas["percentile_rank"] < p1)]
@@ -215,7 +215,7 @@ def predicao(data):
             duplicateMHCI.to_csv('NETmhc1FIL.csv',  
                             index = None)
 
-        if "netmhcstabpan" in metodoMHCI:
+        elif "netmhcstabpan" in metodoMHCI:
             Metodo2MHCI = pd.read_table("NETmhci.csv", sep = ',')
             Metodo2MHCIcolunas = Metodo2MHCI.filter(["allele","peptide","percentile_rank"])
             Metodo2MHCIfiltro = Metodo2MHCIcolunas[(Metodo2MHCIcolunas["percentile_rank"] < p1)]
@@ -236,21 +236,24 @@ def predicao(data):
         os.remove('tirado.csv')
 
         #3.2.2 Filtering MHC2 epitopes by another method
-        if "NetMHCIIpan" or "nn_align" or "smm_align" in metodoMHCII:
+        
+        if "NetMHCIIpan" in metodoMHCII or "nn_align" in metodoMHCII or "smm_align" in metodoMHCII:
             Metodo2MHCII = pd.read_table("NETmhcii.csv", sep = ',')
             Metodo2MHCIIcolunas = Metodo2MHCII.filter(["allele","peptide","ic50","rank"])
             Metodo2MHCIIfiltro = Metodo2MHCIIcolunas[(Metodo2MHCIIcolunas["ic50"] <ic50mhc2) & (Metodo2MHCIIcolunas["rank"] < p2)]
             duplicateMHCII = Metodo2MHCIIfiltro.drop_duplicates(subset='peptide', keep="first")
             duplicateMHCII.to_csv('NETmhc2FIL.csv',  
                             index = None)
-
-        if "consensus" in metodoMHCII:
+        elif "comblib" in metodoMHCII:
             Metodo2MHCII = pd.read_table("NETmhcii.csv", sep = ',')
-            Metodo2MHCIIcolunas = Metodo2MHCII.filter(["allele","peptide","percentile_rank","smm_align_ic50","nn_align_ic50"])
-            Metodo2MHCIIfiltro = Metodo2MHCIIcolunas[(Metodo2MHCIIcolunas["smm_align_ic50"] <ic50mhc2) & (Metodo2MHCIIcolunas["nn_align_ic50"] < ic50mhc2) & (Metodo2MHCIIcolunas["percentile_rank"] < p2)]
+            Metodo2MHCIIcolunas = Metodo2MHCII.filter(["allele","peptide","rank"])
+            Metodo2MHCIIfiltro = Metodo2MHCIIcolunas[(Metodo2MHCIIcolunas["rank"] < p2)]
             duplicateMHCII = Metodo2MHCIIfiltro.drop_duplicates(subset='peptide', keep="first")
             duplicateMHCII.to_csv('NETmhc2FIL.csv',  
                             index = None)
+
+
+
         #OBS: CHECKPOINT to save the first prediction data and quantify epitopes by tool
 
         dados = pd.read_csv("IEDBmhci.csv")
@@ -485,17 +488,17 @@ def predicao(data):
                 listshorterthan11.append(epitope)
             else:
                 listlongerthan11.append(epitope)
-    with open("maiorque11.txt","w") as maiorque11:
+    with open("greaterthan11.txt","w") as maiorque11:
         for epitope in listlongerthan11:
             maiorque11.writelines(epitope+"\n")
-    with open("menorque11.txt","w") as menorque11:
+    with open("lessthan11.txt","w") as menorque11:
         for epitope in listshorterthan11:
             menorque11.writelines(epitope+"\n")
 
     #6.3 MHCI immunogenicity using for MHCI epitopes (i.e less than 11 aa)
     MHCinav = webdriver.Firefox(options=firefox_options)
     MHCinav.get("http://tools.iedb.org/immunogenicity/")    
-    MHCinav.find_element(By.XPATH, '//*[@id="id_sequence_file"]').send_keys(os.getcwd()+'/menorque11.txt')
+    MHCinav.find_element(By.XPATH, '//*[@id="id_sequence_file"]').send_keys(os.getcwd()+'/lessthan11.txt')
     time.sleep(5)
     MHCinav.find_element(By.XPATH, '//*[@id="input-form"]/table/tbody/tr[6]/th/div/input[1]').click()
     time.sleep(10)
@@ -508,33 +511,33 @@ def predicao(data):
     quebradordelinhas1= "Peptide,Length,"
     trocatrocadetxt = " "
     trocatrocadnv = ","
-    with open("menorque11.txt","w") as finaldosepitops:
+    with open("lessthan11.txt","w") as finaldosepitops:
         finalizarosepitopos = finaldosepitops.writelines(tabeladonavegadorMHCIclass)
-    with open("menorque11.txt","r") as reading:
+    with open("lessthan11.txt","r") as reading:
         finalizadinho = reading.read()
         finalizadinho = finalizadinho.replace(quebradelinha,virgula)
-    with open("menorque11.txt", "w") as filepequeno:
+    with open("lessthan11.txt", "w") as filepequeno:
         filepequeno.write(finalizadinho)
-    with open("menorque11.txt","r") as reading1:
+    with open("lessthan11.txt","r") as reading1:
         finalizadinho1 = reading1.read()
         finalizadinho1 = finalizadinho1.replace(quebradordelinhas,quebradordelinhas1)
-    with open("menorque11.txt", "w") as filepequeno1:
+    with open("lessthan11.txt", "w") as filepequeno1:
         filepequeno1.write(finalizadinho1)
-    with open("menorque11.txt","r") as reading12:
+    with open("lessthan11.txt","r") as reading12:
         finalizadinho12 = reading12.read()
         finalizadinho12 = finalizadinho12.replace(trocatrocadetxt,trocatrocadnv)
-    with open("menorque11.txt", "w") as filepequeno12:
+    with open("lessthan11.txt", "w") as filepequeno12:
         filepequeno12.write(finalizadinho12)
-    Finish = pd.read_csv("menorque11.txt",sep=",")
+    Finish = pd.read_csv("lessthan11.txt",sep=",")
     filtered_epitopes = Finish[(Finish["Score"]>0.1)]
     MHCI_immunogenicity_analysis = filtered_epitopes[["Peptide"]]
-    MHCI_immunogenicity_analysis.to_csv("menorque11.txt", header=None, index=None)
+    MHCI_immunogenicity_analysis.to_csv("lessthan11.txt", header=None, index=None)
     MHCIimmuno = len(MHCI_immunogenicity_analysis)
     MHCIimmunoNumber = str(MHCIimmuno)
     print("Os epítopos de MHCI foram reduzidos para " + MHCIimmunoNumber + " após MHCI immunogenicity")
 
     #6.4 List of the final epitopes (MHC1 with immunogenicity avaliation) + (MHCII)
-    with open("menorque11.txt", 'r') as file1, open("maiorque11.txt", 'r') as file2, open("FinalEpitopes.txt", 'w') as output_file:
+    with open("lessthan11.txt", 'r') as file1, open("greaterthan11.txt", 'r') as file2, open("FinalEpitopes.txt", 'w') as output_file:
         for linha in file1:
             output_file.write(linha)
         for linha in file2:
@@ -567,10 +570,10 @@ def predicao(data):
                 listamenorque11.append(epitope)
             else:
                 listamaiorque11.append(epitope)
-    with open("maiorque11.txt","w") as maiorque11:
+    with open("greaterthan11.txt","w") as maiorque11:
         for epitope in listamaiorque11:
             maiorque11.writelines(epitope+"\n")
-    with open("menorque11.txt","w") as menorque11:
+    with open("lessthan11.txt","w") as menorque11:
         for epitope in listamenorque11:
             menorque11.writelines(epitope+"\n")
 
@@ -578,7 +581,7 @@ def predicao(data):
     #7.2.1 ECA MHC1
     clusters = webdriver.Firefox(options=firefox_options)
     clusters.get("http://tools.iedb.org/cluster/")    
-    clusters.find_element(By.XPATH, '//*[@id="id_sequence_file"]').send_keys(os.getcwd()+"/menorque11.txt") #Pra epitopos menor que 11
+    clusters.find_element(By.XPATH, '//*[@id="id_sequence_file"]').send_keys(os.getcwd()+"/lessthan11.txt") #Pra epitopos menor que 11
     time.sleep(1)
     clusters.find_element(By.XPATH, '/html/body/div[3]/form/table/tbody/tr[5]/th/div/input[1]').click()
     time.sleep(1)
@@ -593,7 +596,7 @@ def predicao(data):
     #7.2.2 ECA MHC2
     clusters = webdriver.Firefox(options=firefox_options)
     clusters.get("http://tools.iedb.org/cluster/")    
-    clusters.find_element(By.XPATH, '//*[@id="id_sequence_file"]').send_keys(os.getcwd()+"/maiorque11.txt") #Pra epitopos maior que 11
+    clusters.find_element(By.XPATH, '//*[@id="id_sequence_file"]').send_keys(os.getcwd()+"/greaterthan11.txt") #Pra epitopos maior que 11
     time.sleep(1)
     clusters.find_element(By.XPATH, '/html/body/div[3]/form/table/tbody/tr[5]/th/div/input[1]').click()
     time.sleep(1)
@@ -626,7 +629,7 @@ def predicao(data):
     cluster1_subtração = [line.rstrip('\n') for line in open("cluster1.txt")]
 
     nova_lista_a = [item for item in listafinalepitopes if item not in cluster1_subtração]
-    with open("finalmente.txt","w") as finalmente1:
+    with open("laststep.txt","w") as finalmente1:
         for epitope in nova_lista_a:
             finalmente1.writelines(epitope+"\n")
 
@@ -649,8 +652,8 @@ def predicao(data):
     cluster2_ndesejavel = open("cluster2.txt", "r")
     cluster2_subtração = [line.rstrip('\n') for line in open("cluster2.txt")]
 
-    arquivofinalepitopes = open("finalmente.txt", "r")
-    listafinalmente = [line.rstrip('\n') for line in open("finalmente.txt")]
+    arquivofinalepitopes = open("laststep.txt", "r")
+    listafinalmente = [line.rstrip('\n') for line in open("laststep.txt")]
 
     #7.4 Final epitopes selection after clustering analysis 
     nova_lista_b = [item for item in listafinalmente if item not in cluster2_subtração]
@@ -817,27 +820,33 @@ def predicao(data):
         hamescreveisso2 = escritadisso2.writelines(pegarurl)
 
 
-    from PIL import Image, ImageDraw, ImageFont
-    #First Image Generation
-    #Function to obtain the epitopes based on the linkers positions
-    def dividir_sequencia(sequencia):
-        partes = []
-        while sequencia:
-            indice_gpgpg = sequencia.find(Linker2)
-            indice_aay = sequencia.find(Linker1)
-            if indice_gpgpg != -1 and (indice_gpgpg < indice_aay or indice_aay == -1):
-                partes.append(sequencia[:indice_gpgpg])
-                sequencia = sequencia[indice_gpgpg + len(Linker2) :]
-            elif indice_aay != -1 and (indice_aay < indice_gpgpg or indice_gpgpg == -1):
-                partes.append(sequencia[:indice_aay])
-                sequencia = sequencia[indice_aay + len(Linker1) :]
-            else:
-                partes.append(sequencia)
-                sequencia = ""
-        return partes
+    ###############
+    # First Image Generation
+    from PIL import Image, ImageDraw, ImageFont 
 
-    # Function to create the image with the rectangles representing the epitopes and the colors between them
-    def criar_imagem_epitopos(partes):
+    with open('Your_Final_Epitopes.txt', 'r') as arquivo:
+        lista_epitopos = arquivo.read().splitlines()
+
+    with open('YourFinalModel.faa', 'r') as fasta:
+        linhasdofasta = fasta.readlines()
+
+    sequencia_completa = ''.join(linhasdofasta[1:])  # Ignora a primeira linha (cabeçalho)
+
+    # Separação dos epítopos em duas listas: maiores que 11 e menores que 11
+    epitopos_maior_11 = [epitopo for epitopo in lista_epitopos if len(epitopo) > 11]
+    epitopos_menor_11 = [epitopo for epitopo in lista_epitopos if len(epitopo) <= 11]
+
+    # Ordenação dos epítopos maiores que 11 baseando-se na sequência
+    lista_epitopos_maior_11_ordenada = sorted(epitopos_maior_11, key=lambda epitopo: sequencia_completa.find(epitopo))
+
+    # Ordenação dos epítopos menores ou iguais a 11 baseando-se na sequência
+    lista_epitopos_menor_11_ordenada = sorted(epitopos_menor_11, key=lambda epitopo: sequencia_completa.find(epitopo))
+
+    # Concatenação das listas ordenadas
+    listaparaimagem = lista_epitopos_maior_11_ordenada + lista_epitopos_menor_11_ordenada
+
+    # Função para criar a imagem com os epitopos e os linkers
+    def criar_imagem_epitopos(partes, adjuvante_texto=""):
         margem = 10 
         altura_retangulo = 50 
         largura_retangulo = 300 
@@ -850,17 +859,17 @@ def predicao(data):
 
         fonte = ImageFont.truetype("Arial.ttf", 24)
 
-        # ADJUVANT
-        adj_x = margem
-        adj_y = margem
-        adj_largura = 300
-        adj_altura = altura_retangulo
-        draw.rectangle([(adj_x, adj_y), (adj_x + adj_largura, adj_y + adj_altura)], fill='green', outline=None)  
-        texto_adj = "ADJUVANT"
-        texto_adj_bbox = draw.textbbox((adj_x, adj_y), texto_adj, font=fonte)
-        adj_x_texto = adj_x + (adj_largura - texto_adj_bbox[2] + texto_adj_bbox[0]) // 2 
-        adj_y_texto = adj_y + (adj_altura - texto_adj_bbox[3] + texto_adj_bbox[1]) // 2  
-        draw.text((adj_x_texto, adj_y_texto), texto_adj, fill='white', font=fonte)
+        if adjuvante_texto:  # Verifica se a variável adjuvante não está vazia
+            # Desenha o retângulo do adjuvante e o texto
+            adj_x = margem
+            adj_y = margem
+            adj_largura = 300
+            adj_altura = altura_retangulo
+            draw.rectangle([(adj_x, adj_y), (adj_x + adj_largura, adj_y + adj_altura)], fill='green', outline=None)  
+            texto_adj_bbox = draw.textbbox((adj_x, adj_y), adjuvante_texto, font=fonte)
+            adj_x_texto = adj_x + (adj_largura - texto_adj_bbox[2] + texto_adj_bbox[0]) // 2 
+            adj_y_texto = adj_y + (adj_altura - texto_adj_bbox[3] + texto_adj_bbox[1]) // 2  
+            draw.text((adj_x_texto, adj_y_texto), adjuvante_texto, fill='white', font=fonte)
 
         y = margem + altura_retangulo + margem // 2 
         for parte in partes:
@@ -868,50 +877,33 @@ def predicao(data):
             x_texto = margem + (largura_retangulo - texto_bbox[2] + texto_bbox[0]) // 2
             y_texto = y + (altura_retangulo - texto_bbox[3] + texto_bbox[1]) // 2  
 
-            # color of the epitopes based on the size of the sequence
             if len(parte) > 10:
                 cor_retangulo = 'navy'
                 cor_texto = 'white'
-                tipo_epitope = 'MHCII epitope'
             else:
                 cor_retangulo = 'lightcoral'
                 cor_texto = 'black'
-                tipo_epitope = 'MHCI epitope'
 
             draw.rectangle([(margem, y), (largura_retangulo + margem, y + altura_retangulo)], fill=cor_retangulo, outline=None) 
             draw.text((x_texto, y_texto), parte, fill=cor_texto, font=fonte)
 
             y += altura_retangulo + margem // 2
 
-        # Legend1
         tamanho_legenda = 20
         y_legenda = margem
         x_legenda = largura_retangulo + 2 * margem + 50 
-        draw.rectangle([(x_legenda, y_legenda), (x_legenda + tamanho_legenda, y_legenda + tamanho_legenda)], fill='navy', outline=None)  # Quadrado azul MHCII epitope
-        draw.rectangle([(x_legenda, y_legenda + tamanho_legenda + margem), (x_legenda + tamanho_legenda, y_legenda + 2 * tamanho_legenda + margem)], fill='lightcoral', outline=None)  # Quadrado vermelho MHCI epitope
+        draw.rectangle([(x_legenda, y_legenda), (x_legenda + tamanho_legenda, y_legenda + tamanho_legenda)], fill='navy', outline=None)  
+        draw.rectangle([(x_legenda, y_legenda + tamanho_legenda + margem), (x_legenda + tamanho_legenda, y_legenda + 2 * tamanho_legenda + margem)], fill='lightcoral', outline=None)  
         draw.text((x_legenda + tamanho_legenda + 10, y_legenda + (tamanho_legenda - texto_bbox[3] + texto_bbox[1]) // 2), "MHCII epitope", fill='black', font=fonte)
         draw.text((x_legenda + tamanho_legenda + 10, y_legenda + tamanho_legenda + margem + (tamanho_legenda - texto_bbox[3] + texto_bbox[1]) // 2), "MHCI epitope", fill='black', font=fonte)
 
         imagem.save('sequence.png', dpi=(300, 300), size=(largura_imagem, altura_imagem))
 
 
-    # Fasta reading
-    with open('YourFinalModel.faa', 'r') as arquivo:
-        linhas = arquivo.readlines()
+    # Criar a imagem usando a lista2 e o texto do adjuvante
+    criar_imagem_epitopos(listaparaimagem, adjuvantevacina)
 
-    # Adjuvant sequence excluding by the EAAAK position
-    sequencia_completa = ''.join(linhas[1:])  # Ignora a primeira linha (cabeçalho)
-    indice_eaaak = sequencia_completa.find("EAAAK")
-    if indice_eaaak != -1:
-        sequencia = sequencia_completa[indice_eaaak + len("EAAAK"):]  # Mantém apenas a sequência após "EAAAK"
-    else:
-        sequencia = sequencia_completa
-
-    # Dividir a sequência de aminoácidos conforme os padrões
-    partes_sequencia = dividir_sequencia(sequencia)
-
-    #Image creation
-    criar_imagem_epitopos(partes_sequencia)
+    
 
     ###############
     # Second Image Generation
@@ -967,7 +959,7 @@ def predicao(data):
         ("MHCIIrec filtered", "MHCII over", {"label": "Overlapping 1"}),
         ("MHCIIsec filtered", "MHCII over", {"label": "Overlapping 1"}),
         ("MHCII over", "MHCIIxBc", {"label": "Overlapping 2"}),
-        ("MHCIIxBc", "MHCII final", {"label": "Cluster and MHCIIi"}),
+        ("MHCIIxBc", "MHCII final", {"label": "Cluster"}),
     ]
 
     G.add_edges_from(edges_mhcii)
@@ -1039,6 +1031,18 @@ def predicao(data):
     plt.gcf().set_size_inches(12, 10)  # Ajustando o tamanho da imagem
     plt.tight_layout()  # Garantindo um layout ajustado
     plt.savefig("flowchart.png", format="png", dpi=300)  # Salvando a imagem como PNG com 300 DPI
+
+
+
+    ### ZIPPING mhcintermediaries files
+    caminho_pasta_atual = os.getcwd()
+    nome_arquivo_zip = "MHCintermediariesFILES.zip"
+
+    with zipfile.ZipFile(nome_arquivo_zip, 'w') as arquivo_zip:
+        for nome_arquivo in os.listdir(caminho_pasta_atual):
+            if nome_arquivo.startswith("MHC"):
+                caminho_completo = os.path.join(caminho_pasta_atual, nome_arquivo)
+                arquivo_zip.write(caminho_completo, nome_arquivo)
 
     #Saving the results into one zip file
     z = zipfile.ZipFile('Final.zip', 'w', zipfile.ZIP_DEFLATED)
