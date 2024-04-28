@@ -833,8 +833,8 @@ def predicao(data):
     sequencia_completa = ''.join(linhasdofasta[1:])  # Ignora a primeira linha (cabeçalho)
 
     # Separação dos epítopos em duas listas: maiores que 11 e menores que 11
-    epitopos_maior_11 = [epitopo for epitopo in lista_epitopos if len(epitopo) > 11]
-    epitopos_menor_11 = [epitopo for epitopo in lista_epitopos if len(epitopo) <= 11]
+    epitopos_maior_11 = [epitopo for epitopo in lista_epitopos if len(epitopo) > 10]
+    epitopos_menor_11 = [epitopo for epitopo in lista_epitopos if len(epitopo) < 11]
 
     # Ordenação dos epítopos maiores que 11 baseando-se na sequência
     lista_epitopos_maior_11_ordenada = sorted(epitopos_maior_11, key=lambda epitopo: sequencia_completa.find(epitopo))
