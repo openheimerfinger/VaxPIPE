@@ -11,6 +11,8 @@ RUN apt-get install -y xvfb xauth
 
 RUN apt-get install -y zip
 
+RUN chmod +x startServer.sh
+
 # Copie o arquivo requirements.txt para o diretório de trabalho
 COPY requirements.txt .
 
