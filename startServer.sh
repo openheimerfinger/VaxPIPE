@@ -1,2 +1,2 @@
 #!/bin/sh
-python manage.py runserver 0.0.0.0:8000 > log.txt 2>&1
+python manage.py runserver 0.0.0.0:8000 > system.log 2>&1

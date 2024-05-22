@@ -27,6 +27,6 @@ COPY . .
 EXPOSE 8000
 
 # Comando para iniciar o servidor Django quando o contêiner for iniciado
-CMD ["sh", "/app/start-server.sh"]
+CMD ["sh", "startServer.sh"]
 
 
