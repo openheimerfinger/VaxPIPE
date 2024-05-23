@@ -75,6 +75,13 @@ MHC2EPITOPESSIZE = [
     ('15', '15')
 ]
 
+pathogenChoices = [
+    ('viral', 'Viral'),
+    ('fungus', 'Fungus'),
+    ('bacteria', 'Bacteria'),
+    ('parasite', 'Parasite')
+]
+
 
 MHC1METHODS = [
     ('netmhccons', 'netmhccons'),
@@ -103,16 +110,18 @@ class Parametros(forms.Form):
     analysisname = forms.CharField(label="Analysis's name")
     proteinfile = forms.FileField(label='Upload your FASTA file', required=False)
     proteinsequence = forms.CharField(widget=forms.Textarea(
-        attrs={'placeholder': 'Enter PROTEIN SEQUENCES in FASTA format'}), label='PROTEINS', required=False)
+        attrs={ 'placeholder': 'Enter PROTEIN SEQUENCES in FASTA format', 'style': 'min-height: 358px;'}), label='PROTEINS', required=False)
     adjuvant = forms.CharField(widget=forms.Textarea(
         attrs={'placeholder': 'Enter ADJUVANT SEQUENCES in PLAIN format', 'style': 'max-height: 100px;'}), label='ADJUVANT', required=False)
-    mhcI = forms.MultipleChoiceField(choices=MHC1, label='Alleles MHCI', initial=MHC1[0], widget=forms.SelectMultiple(attrs={'size': 6}))
-    mhcII = forms.MultipleChoiceField(choices=MHC2, label='Alleles MHCII', initial=MHC2[0], widget=forms.SelectMultiple(attrs={'size': 6}))
+    mhcI = forms.MultipleChoiceField(choices=MHC1, label='Alleles MHCI', initial=MHC1[0], widget=forms.SelectMultiple(attrs={'size': 10}))
+    mhcII = forms.MultipleChoiceField(choices=MHC2, label='Alleles MHCII', initial=MHC2[0], widget=forms.SelectMultiple(attrs={'size': 10}))
     mhcILinker = forms.CharField(max_length=500, initial='AAY', label='MHCI Linker')
     mhcIILinker = forms.CharField(max_length=500, initial='GPGPG', label='MHCII Linker')
+    adjLinker = forms.CharField(max_length=500, initial='EAAAK', label='Adj Linker')
     chimericmodelsnumber = forms.IntegerField(label='Number of Chimeric Models', min_value=1, initial=1)
     sizeMHCIepitopes = forms.ChoiceField(choices=MHC1EPITOPESSIZE, label='Size of MHCI Epitopes')
     sizeMHCIIepitopes = forms.ChoiceField(choices=MHC2EPITOPESSIZE, label='Size of MHCII Epitopes')
+    pathogen =  forms.ChoiceField(choices=pathogenChoices, label='Pathogen')
     methodsMHCI = forms.ChoiceField(choices=MHC1METHODS, label='Secondary Method for MHCI')
     methodsMHCII = forms.ChoiceField(choices=MHC2METHODS, label='Secondary Method for MHCII')
     IC50MHCI = forms.IntegerField(initial='50', min_value=1, label='IC50 MHCI')

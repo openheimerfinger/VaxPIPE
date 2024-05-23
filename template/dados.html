@@ -45,12 +45,16 @@
                                     <div class="param__methods">
                                         {% bootstrap_field form.mhcILinker %}
                                         {% bootstrap_field form.mhcIILinker %}
+                                        {% bootstrap_field form.adjLinker %}
                                     </div>
                                 </div>
-                                <div class="adjuvant__box">{% bootstrap_field form.adjuvant size='small' %}</div>
+                                <div class="adjuvant__box">
+                                    {% bootstrap_field form.adjuvant size='small' %}
+                                </div>
                             </div>
                             <div class="parameters__form custom-label">
                                 <div class="params__methods__gerais">
+                                    <div>{% bootstrap_field form.pathogen%}</div>
                                     <div>{% bootstrap_field form.methodsMHCI%}</div>
                                     <div>{% bootstrap_field form.methodsMHCII%}</div>
                                 </div>
@@ -71,11 +75,10 @@
                             <div>{% bootstrap_field form.proteinfile%}</div>
                             <p>OR</p>
                             <div>{% bootstrap_field form.proteinsequence%}</div>
-                            <br>
-                            <br>
-                            <br>
-                            <div>{% bootstrap_field form.p1%}</div>
-                            <div>{% bootstrap_field form.p2%}</div>
+                            <div class="p1p2">
+                                <div>{% bootstrap_field form.p1%}</div>
+                                <div>{% bootstrap_field form.p2%}</div>
+                            </div>
                         </div>
                     </div>
                     
