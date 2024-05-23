@@ -38,14 +38,18 @@ class Dados(FormView):
                     proteinsseqfile = self.lerarquivo(f"epitopos/uploads/{request.FILES['proteinfile']}")
                     self.request.session['proteinsseqfile'] = proteinsseqfile
                 analysisname = form.cleaned_data['analysisname']
+                with open('analysisname.str', 'w') as file:
+                    file.write(analysisname)
                 adjuvant = form.cleaned_data['adjuvant']
                 mhcI = form.cleaned_data['mhcI']
                 mhcII = form.cleaned_data['mhcII']
                 mhcILinker = form.cleaned_data['mhcILinker']
                 mhcIILinker = form.cleaned_data['mhcIILinker']
+                adjLinker = form.cleaned_data['adjLinker']
                 chimericmodelsnumber = form.cleaned_data['chimericmodelsnumber']
                 sizeMHCIepitopes = form.cleaned_data['sizeMHCIepitopes']
                 sizeMHCIIepitopes = form.cleaned_data['sizeMHCIIepitopes']
+                pathogen = form.cleaned_data['pathogen']
                 methodsMHCI = form.cleaned_data['methodsMHCI']
                 methodsMHCII = form.cleaned_data['methodsMHCII']
                 IC50MHCI = form.cleaned_data['IC50MHCI']
@@ -63,9 +67,11 @@ class Dados(FormView):
                 self.request.session['mhcII'] = mhcII
                 self.request.session['mhcILinker'] = mhcILinker
                 self.request.session['mhcIILinker'] = mhcIILinker
+                self.request.session['adjLinker'] = adjLinker
                 self.request.session['chimericmodelsnumber'] = chimericmodelsnumber
                 self.request.session['sizeMHCIepitopes'] = sizeMHCIepitopes
                 self.request.session['sizeMHCIIepitopes'] = sizeMHCIIepitopes
+                self.request.session['pathogen'] = pathogen
                 self.request.session['methodsMHCI'] = methodsMHCI
                 self.request.session['methodsMHCII'] = methodsMHCII
                 self.request.session['IC50MHCI'] = IC50MHCI
@@ -96,9 +102,11 @@ class Analisar(TemplateView):
         mhcIIform = self.request.session['mhcII']
         mhcILinkerform = self.request.session['mhcILinker']
         mhcIILinkerform = self.request.session['mhcIILinker']
+        adjLinkerform = self. request.session['adjLinker']
         chimericmodelsnumberform = self.request.session['chimericmodelsnumber']
         sizeMHCIepitopesform = self.request.session['sizeMHCIepitopes']
         sizeMHCIIepitopesform = self.request.session['sizeMHCIIepitopes']
+        pathogen = self.request.session['pathogen']
         methodsMHCIform = self.request.session['methodsMHCI']
         methodsMHCIIform = self.request.session['methodsMHCII']
         IC50MHCIform = self.request.session['IC50MHCI']
@@ -114,9 +122,11 @@ class Analisar(TemplateView):
         context['mhcIIform'] = mhcIIform
         context['mhcILinkerform'] = mhcILinkerform
         context['mhcIILinkerform'] = mhcIILinkerform
+        context['adjLinkerform'] = adjLinkerform
         context['chimericmodelsnumberform'] = chimericmodelsnumberform
         context['sizeMHCIepitopesform'] = sizeMHCIepitopesform
         context['sizeMHCIIepitopesform'] = sizeMHCIIepitopesform
+        context['pathogen'] = pathogen
         context['methodsMHCIform'] = methodsMHCIform
         context['methodsMHCIIform'] = methodsMHCIIform
         context['IC50MHCIform'] = IC50MHCIform
@@ -134,6 +144,7 @@ class Analisar(TemplateView):
                     'methodsMHCIIform': methodsMHCIIform,
                     'tmMHCI': sizeMHCIepitopesform,
                     'tmMHCII': sizeMHCIIepitopesform,
+                    'pathogen': pathogen,
                     'p1form': p1form,
                     'p2form': p2form,
                     'IC50MHCIform': IC50MHCIform,
@@ -141,6 +152,7 @@ class Analisar(TemplateView):
                     'chimericmodelsnumberform': chimericmodelsnumberform,
                     'mhcILinkerform': mhcILinkerform,
                     'mhcIILinkerform': mhcIILinkerform,
+                    'adjLinkerform' : adjLinkerform,
                     'adjuvantform': adjuvantform}
 
         a = sp.dataform(data_dict)
