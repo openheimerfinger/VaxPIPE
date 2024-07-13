@@ -11,6 +11,8 @@ import os, pandas as pd, selenium, shutil, random, zipfile, time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
 
 proteinas_lista = []
 
@@ -706,8 +708,19 @@ def predicao(data):
 
     # 9.1 Selection of the chimeric model with the highest antigenicity by Vaxijen
     # 9.1.1 Vaxijen accesion
-    navegador10 = webdriver.Firefox(options=firefox_options)
-    navegador10.get("http://www.ddg-pharmfac.net/vaxijen/VaxiJen/VaxiJen.html")    
+    # Configurar o user-agent (TENTATIVA DE BURLAR O SISTEMA DO ANTIBOT)
+    firefox_options1 = Options()
+    firefox_options1.add_argument("--headless")  # Rodar em modo headless
+    firefox_options1.set_preference("general.useragent.override", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+
+    # Configurar cabeçalhos adicionais
+    capabilities = DesiredCapabilities.FIREFOX
+    capabilities["marionette"] = True
+    capabilities["acceptInsecureCerts"] = True
+
+    navegador10 = webdriver.Firefox(options=firefox_options1, capabilities=capabilities)
+    navegador10.get("http://www.ddg-pharmfac.net/vaxijen/VaxiJen/VaxiJen.html")
+    time.sleep(8)    
     navegador10.find_element(By.XPATH, "/html/body/div/table/tbody/tr[4]/td[3]/form/table/tbody/tr[1]/td[2]/p/input").send_keys(os.getcwd()+"/Chimeric.faa")
     time.sleep(8)
     navegador10.find_element(By.XPATH, '/html/body/div/table/tbody/tr[4]/td[3]/form/table/tbody/tr[2]/td[2]/p/input[1]').click()
@@ -859,7 +872,10 @@ def predicao(data):
 
         fonte = ImageFont.truetype("Arial.ttf", 24)
 
-        if adjuvante_texto:  # Verifica se a variável adjuvante não está vazia
+        # Verifica se há adjuvante e define o texto a ser mostrado
+        adjuvante_texto = "ADJUVANT" if adjuvantevacina else ""
+
+        if adjuvantevacina:
             # Desenha o retângulo do adjuvante e o texto
             adj_x = margem
             adj_y = margem
@@ -870,6 +886,7 @@ def predicao(data):
             adj_x_texto = adj_x + (adj_largura - texto_adj_bbox[2] + texto_adj_bbox[0]) // 2 
             adj_y_texto = adj_y + (adj_altura - texto_adj_bbox[3] + texto_adj_bbox[1]) // 2  
             draw.text((adj_x_texto, adj_y_texto), adjuvante_texto, fill='white', font=fonte)
+
 
         y = margem + altura_retangulo + margem // 2 
         for parte in partes:
