@@ -597,13 +597,13 @@ def predicao(data):
     clusters = webdriver.Firefox(options=firefox_options)
     clusters.get("http://tools.iedb.org/cluster/")    
     clusters.find_element(By.XPATH, '//*[@id="id_sequence_file"]').send_keys(os.getcwd()+"/greaterthan11.txt") #Pra epitopos maior que 11
-    time.sleep(1)
+    time.sleep(15)
     clusters.find_element(By.XPATH, '/html/body/div[3]/form/table/tbody/tr[5]/th/div/input[1]').click()
-    time.sleep(1)
+    time.sleep(15)
     clusters.find_element(By.XPATH, '/html/body/div[3]/form/table/tbody/tr[7]/th/div/input[2]').click()
-    time.sleep(1)
+    time.sleep(15)
     clusters.find_element(By.XPATH, '/html/body/div[3]/form/table/tbody/tr[4]/th/div/input[2]').click()
-    time.sleep(2)
+    time.sleep(25)
     tabeladoclusters = clusters.find_element(By.XPATH, '/html/body/div[3]/div/div[3]/div[2]/div[1]/table/tbody')
     tabeladonavegadorclustersmaiorque11 = tabeladoclusters.text
     Clustermaiorque11 = tabeladonavegadorclustersmaiorque11
@@ -706,10 +706,36 @@ def predicao(data):
 
     # 9.1 Selection of the chimeric model with the highest antigenicity by Vaxijen
     # 9.1.1 Vaxijen accesion
-    navegador10 = webdriver.Firefox(options=firefox_options)
+    user_agents = [
+    # Add your list of user agents here
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15',
+    ]
+
+    user_agent = random.choice(user_agents)
+    firefox_options2 = Options()
+    firefox_options2.add_argument(f'user-agent={user_agent}')
+
+    # Criar um perfil do Firefox
+    profile = webdriver.FirefoxProfile()
+
+    # Definir preferências no perfil
+    profile.set_preference("network.http.redirection-limit", 10)  # Permite até 10 redirecionamentos (ou ajuste conforme necessário)
+    profile.set_preference("network.http.prompt-temp-redirect", False)  # Desativa prompts de redirecionamento temporário
+
+    firefox_options.profile = profile
+
+
+    navegador10 = webdriver.Firefox(options=firefox_options2)
     navegador10.get("http://www.ddg-pharmfac.net/vaxijen/VaxiJen/VaxiJen.html")    
+    time.sleep(60)
     navegador10.find_element(By.XPATH, "/html/body/div/table/tbody/tr[4]/td[3]/form/table/tbody/tr[1]/td[2]/p/input").send_keys(os.getcwd()+"/Chimeric.faa")
-    time.sleep(8)
+    time.sleep(10)
     navegador10.find_element(By.XPATH, '/html/body/div/table/tbody/tr[4]/td[3]/form/table/tbody/tr[2]/td[2]/p/input[1]').click()
     navegador10.find_element(By.XPATH, '/html/body/div/table/tbody/tr[4]/td[3]/form/table/tbody/tr[2]/td[2]/p/input[3]').click()
     navegador10.find_element(By.XPATH, '/html/body/div/table/tbody/tr[4]/td[3]/form/table/tbody/tr[3]/td[2]/input[1]').click()
